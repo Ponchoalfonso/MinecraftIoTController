@@ -11,12 +11,9 @@ class GroveLightSensor:
         self.adc = ADC()
 
     @property
-    def light(self):
+    def value(self):
         value = self.adc.read(self.channel)
         return value
-
-
-Grove = GroveLightSensor
 
 
 def main():
@@ -28,7 +25,7 @@ def main():
 
     print('Detecting light...')
     while True:
-        print('Light value: {0}'.format(sensor.light))
+        print('Light value: {0}'.format(sensor.value))
         time.sleep(1)
 
 

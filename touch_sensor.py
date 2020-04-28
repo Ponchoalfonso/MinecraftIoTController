@@ -3,9 +3,9 @@ from grove.gpio import GPIO
 
 
 class GroveTouchSensor(GPIO):
+
     def __init__(self, pin):
         super(GroveTouchSensor, self).__init__(pin, GPIO.IN)
-        self._last_time = time.time()
 
         self._on_press = None
         self._on_release = None
@@ -39,15 +39,12 @@ class GroveTouchSensor(GPIO):
         self._on_release = callback
 
     def _handle_event(self, pin, value):
-        t = time.time()
-        dt, self._last_time = t - self._last_time, t
-
         if value:
             if callable(self._on_press):
-                self._on_press(dt)
+                self._on_press()
         else:
             if callable(self._on_release):
-                self._on_release(dt)
+                self._on_release()
 
 
 def main():
@@ -59,10 +56,10 @@ def main():
 
     touch = GroveTouchSensor(int(sys.argv[1]))
 
-    def on_press(t):
+    def on_press():
         print('Pressed')
 
-    def on_release(t):
+    def on_release():
         print("Released.")
 
     touch.on_press = on_press

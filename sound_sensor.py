@@ -11,12 +11,9 @@ class GroveSoundSensor:
         self.adc = ADC()
 
     @property
-    def sound(self):
+    def value(self):
         value = self.adc.read(self.channel)
         return value
-
-
-Grove = GroveSoundSensor
 
 
 def main():
@@ -28,7 +25,7 @@ def main():
 
     print('Detecting sound...')
     while True:
-        print('Sound value: {0}'.format(sensor.sound))
+        print('Sound value: {0}'.format(sensor.value))
         time.sleep(.3)
 
 
